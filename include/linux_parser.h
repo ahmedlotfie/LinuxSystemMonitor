@@ -4,7 +4,7 @@
 #include <fstream>
 #include <regex>
 #include <string>
-
+#include <iostream>
 namespace LinuxParser {
 // Paths
 const std::string kProcDirectory{"/proc/"};
@@ -40,6 +40,15 @@ enum CPUStates {
   kGuest_,
   kGuestNice_
 };
+
+enum ProcesIdStatIndex {
+  kUtime = 14,
+  kStime = 15,
+  kCutime = 16,
+  kCstime = 17,
+  kStartTime = 22
+};
+
 std::vector<std::string> CpuUtilization();
 long Jiffies();
 long ActiveJiffies();
@@ -52,6 +61,7 @@ std::string Ram(int pid);
 std::string Uid(int pid);
 std::string User(int pid);
 long int UpTime(int pid);
+std::vector<float> CpuUtilizationforProcess(int pid);
 };  // namespace LinuxParser
 
 #endif
