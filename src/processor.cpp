@@ -1,8 +1,7 @@
 #include "processor.h"
 
 Processor::Processor():prevIdle(0.0),prevTotal(0.0){};
-// TODO: Return the aggregate CPU utilization
-// Done
+// Return the aggregate CPU utilization
 float Processor::Utilization() { 
     vector<string> cpuUtilsStrs = LinuxParser::CpuUtilization(); 
     vector<unsigned long long> cpuUtilsUll = {};
@@ -20,14 +19,13 @@ float Processor::Utilization() {
     double nonIdle = cpuUtilsUll[LinuxParser::CPUStates::kUser_] +cpuUtilsUll[LinuxParser::CPUStates::kNice_]+
                     cpuUtilsUll[LinuxParser::CPUStates::kSystem_] + cpuUtilsUll[LinuxParser::CPUStates::kIRQ_]+
                     cpuUtilsUll[LinuxParser::CPUStates::kSoftIRQ_] + cpuUtilsUll[LinuxParser::CPUStates::kSteal_];
-    double idle = cpuUtilsUll[LinuxParser::CPUStates::kIdle_] + cpuUtilsUll[LinuxParser::CPUStates::kIOwait_]
-;
+    double idle = cpuUtilsUll[LinuxParser::CPUStates::kIdle_] + cpuUtilsUll[LinuxParser::CPUStates::kIOwait_];
+    
     double total = idle + nonIdle;
-
     double totalDiff = total - prevTotal;
     double idleDiff = idle - prevIdle;
 
-    float cpuPercentage = (float)((totalDiff - idleDiff) /totalDiff);
+    float cpuPercentage = static_cast<float>((totalDiff - idleDiff) /totalDiff);
     
     prevIdle = idle;
     prevTotal = total;

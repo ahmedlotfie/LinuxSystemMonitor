@@ -18,6 +18,22 @@ const std::string kVersionFilename{"/version"};
 const std::string kOSPath{"/etc/os-release"};
 const std::string kPasswordPath{"/etc/passwd"};
 
+const std::string MEMTOTALSTR = "MemTotal";
+const std::string MEMFREESTR = "MemFree";
+const std::string CPUSTR = "cpu";
+const std::string PROCESSESSTR = "processes";
+const std::string PROCESSESRUNNINGSTR = "procs_running";
+
+/*this will give you memory usage more than your Physical RAM size!
+Because VmSize is the sum of all the virtual memory as you can see on the manpages also.
+Search for VmSize and you will get the following line
+vmSize = virtual memory size
+Whereas when you use VmRSS then it gives the exact physical memory being used as a part of Physical RAM.
+*/
+const std::string KEYWORD = "VmRSS";//"VmSize";
+
+const std::string UIDSTR = "Uid";
+
 // System
 float MemoryUtilization();
 long UpTime();
